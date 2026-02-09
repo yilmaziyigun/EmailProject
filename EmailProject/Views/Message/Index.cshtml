@@ -1,0 +1,30 @@
+﻿@model List<EmailProject.Entities.Message>
+@{
+    Layout = null;
+}
+<link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+<div class="container">
+    <h2>Gelen Kutusu</h2>
+    <table class="table table-bordered">
+            <tr>
+            <th>#</th>
+                <th>Kime</th>
+                <th>Konu</th>
+                <th>Mesaj</th>
+                <th>Tarih</th>
+            <th>Mesajı Aç</th>
+            <th>Sil</th>
+            </tr>
+            @foreach (var message in Model)
+            {
+                <tr>
+                    <td>@message.ReceiverEmail</td>
+                    <td>@message.Subject</td>
+                    <td>@message.MessageDetail</td>
+                    <td>@message.SentDate.ToString("dd-MM-yyyy")</td>
+                    <td><a href="/Message/MessageDetail/@message.MessageId" class="btn-warning">Mesaj Gör</a></td>
+                    <td><a href="/Message/MessageDelete/@message.MessageId" class="btn-danger">Mesaj Sil</a></td>
+                </tr>
+            }
+    </table>
+</div>

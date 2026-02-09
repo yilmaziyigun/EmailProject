@@ -1,0 +1,28 @@
+﻿@model EmailProject.Dtos.UserEditDto
+@{
+    Layout = null;
+}
+<link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+<div class="container">
+    <br /> <br/>
+    <form method="post" enctype="multipart/form-data">
+        <br />
+        <label>Kullanıcı Adınız</label>
+        <input type="text" placeholder="Kullanıcı Adınız" class="form-control" asp-for="Username" />
+        <br />
+        <label>Adınız</label>
+        <input type="text" placeholder="Adınız" class="form-control" asp-for="Name" />
+        <br />
+        <label>Soyadınız</label>
+        <input type="text" placeholder="Soyadınız" class="form-control" asp-for="Surname" />
+        <br />
+        <label>Mail Adresiniz</label>
+        <input type="text" placeholder="Mail Adresiniz" class="form-control" asp-for="Email" />
+        <br />
+        <label>Görsel Url</label>
+        <input type="file" placeholder="Görsel Url"  class="form-control" asp-for="Image" />
+        <label>Şifreniz</label>
+        <input type="text" placeholder="Şifreniz" class="form-control" asp-for="Password" />
+        <button class="btn btn-primary">Güncelle</button>
+    </form>
+</div>

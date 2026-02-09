@@ -1,0 +1,124 @@
+﻿@{
+    Layout = null;
+    var email = ViewBag.Email as string;
+    var error = ViewBag.Error as string;
+}
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8" />
+    <title>Email Doğrulama</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        body {
+            background: url('/Images/kizkulesi.png') no-repeat center center fixed;
+            background-size: cover;
+        }
+
+        .glass {
+            backdrop-filter: blur(18px);
+            background: rgba(0,0,0,0.55);
+        }
+
+        @@keyframes shake {
+            0%
+
+        {
+            transform: translateX(0);
+        }
+
+        25% {
+            transform: translateX(-6px);
+        }
+
+        50% {
+            transform: translateX(6px);
+        }
+
+        75% {
+            transform: translateX(-6px);
+        }
+
+        100% {
+            transform: translateX(0);
+        }
+
+        }
+
+        .shake {
+            animation: shake 0.4s;
+        }
+    </style>
+</head>
+<body class="h-screen flex items-center justify-center text-white">
+
+    <div id="card" class="glass w-[420px] p-10 rounded-2xl shadow-2xl text-center">
+
+        <img src="/Images/Ylogo.png" class="w-24 mx-auto mb-6 drop-shadow-xl" />
+
+        <h2 class="text-2xl font-semibold mb-2">Email Doğrulama</h2>
+        <div class="mb-4 text-left">
+            <label class="text-sm text-gray-300">Email Adresi</label>
+            <input type="text"
+                   value="@email"
+                   readonly
+                   class="w-full mt-1 px-3 py-2 rounded bg-black/40 border border-gray-600 text-gray-300" />
+        </div>
+
+
+        @if (!string.IsNullOrEmpty(error))
+        {
+            <div id="errorBox" class="bg-red-500/20 border border-red-500 text-red-300 p-2 rounded mb-4">
+                @error
+            </div>
+        }
+
+        <form method="post" id="confirmForm">
+            <input type="hidden" name="email" value="@email" />
+
+            <input id="codeInput"
+                   name="code"
+                   maxlength="6"
+                   placeholder="______"
+                   class="w-full text-center tracking-[12px] text-3xl py-3 rounded bg-black/40 border border-gray-600 focus:outline-none focus:border-red-500 transition"
+                   autocomplete="off" />
+
+            <button type="submit"
+                    class="mt-6 w-full bg-red-600 hover:bg-red-700 transition py-3 rounded font-semibold">
+                Doğrula
+            </button>
+        </form>
+
+        <a href="/Login/UserLogin" class="block mt-6 text-sm text-gray-400 hover:text-white">
+            Giriş ekranına dön
+        </a>
+
+    </div>
+
+    <script>
+        const form = document.getElementById('confirmForm');
+        const card = document.getElementById('card');
+        const input = document.getElementById('codeInput');
+
+        // Sadece rakam girilsin
+        input.addEventListener('input', () => {
+            input.value = input.value.replace(/[^0-9]/g, '');
+        });
+
+        // Enter ile gönder
+        input.addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                form.submit();
+            }
+        });
+
+        // Hata varsa shake
+        if (document.getElementById('errorBox')) {
+            card.classList.add('shake');
+        }
+    </script>
+
+</body>
+</html>

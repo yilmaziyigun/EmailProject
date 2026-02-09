@@ -1,0 +1,102 @@
+﻿@model EmailProject.Dtos.UserLoginDto
+@{
+
+    Layout = null;
+    var hasError = !ViewData.ModelState.IsValid;
+    var showActivateModal = ViewBag.ShowActivateModal ?? false;
+    var activateError = ViewBag.ActivateError ?? "";
+    var preEmail = ViewBag.Email ?? "";
+    var preUsername = ViewBag.Username ?? "";
+}
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Giriş Yap</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen flex items-center justify-center relative">
+
+    <div class="absolute inset-0 bg-black/70 backdrop-blur-sm"></div>
+
+    <!-- Login Card -->
+    <div class="relative w-full max-w-md bg-slate-900/80 border border-slate-700 rounded-2xl shadow-2xl p-10 z-10 @(hasError ? "shake" : "")">
+        <div class="flex justify-center mb-8">
+            <img src="/Images/Ylogo.png" alt="Logo" class="h-48 md:h-38 object-contain transition duration-300 hover:scale-105" />
+        </div>
+
+        <h2 class="text-3xl font-bold text-white text-center mb-8">Hesabına Giriş Yap</h2>
+
+        <form id="loginForm" asp-action="UserLogin" method="post" class="space-y-6">
+            <input asp-for="username" placeholder="Kullanıcı Adı" class="w-full px-4 py-3 rounded-lg bg-slate-800 text-white border border-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+            <input asp-for="password" placeholder="Şifre" type="password" class="w-full px-4 py-3 rounded-lg bg-slate-800 text-white border border-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+
+            <div asp-validation-summary="All" class="text-red-400 text-sm"></div>
+          
+
+            <button type="submit" class="w-full py-3 bg-indigo-600 hover:bg-indigo-700 rounded-lg text-white font-semibold">Giriş Yap</button>
+            <div class="text-center mt-4">
+                <button type="button"
+                        onclick="document.getElementById('activateModal').classList.remove('hidden')"
+                        class="px-20 py-1 bg-yellow-500 hover:bg-yellow-600 text-white rounded-lg font-semibold">
+                    Hesabımı Aktifleştir
+                </button>
+            </div>
+            <div class="text-center text-slate-400 text-sm mt-6">
+                Hesabın yok mu?
+                <a asp-controller="Register" asp-action="CreateUser" class="text-indigo-400 hover:text-indigo-300 font-semibold">Kayıt Ol</a>
+            </div>
+            
+        </form>
+    </div>
+
+    <!-- ACTIVATE MODAL -->
+    <div id="activateModal" class="fixed inset-0 bg-black/70 flex items-center justify-center z-50 @(showActivateModal ? "" : "hidden")">
+        <div class="bg-slate-900 max-w-md w-full p-6 rounded-xl shadow-2xl relative">
+            <h3 class="text-xl font-bold text-white mb-4">Hesabını Aktifleştir</h3>
+
+            @if (!string.IsNullOrEmpty(activateError))
+            {
+                <div class="text-red-400 text-sm mb-2">@activateError</div>
+            }
+
+            <form asp-controller="Register" asp-action="ActivateUser" method="post" class="space-y-4">
+                <input type="text" name="Email" value="@preEmail" placeholder="Email"
+                       class="w-full px-4 py-3 rounded-lg bg-slate-800 text-white border border-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 placeholder-gray-400" />
+
+                <input type="text" name="Username" value="@preUsername" placeholder="Kullanıcı Adı"
+                       class="w-full px-4 py-3 rounded-lg bg-slate-800 text-white border border-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 placeholder-gray-400" />
+
+                <input type="text" name="ConfirmCode" placeholder="Email Kodunuz"
+                       class="w-full px-4 py-3 rounded-lg bg-slate-800 text-white border border-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 placeholder-gray-400" />
+
+                <div class="flex justify-end gap-2 mt-4">
+                    <button type="button" onclick="closeModal()" class="px-4 py-2 bg-gray-600 hover:bg-gray-700 text-white rounded-lg">İptal</button>
+                    <button type="submit" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg">Aktifleştir</button>
+                </div>
+            </form>
+
+
+
+            <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-xl">✕</button>
+        </div>
+    </div>
+
+    <script>
+        function closeModal() {
+            document.getElementById("activateModal").classList.add("hidden");
+        }
+
+        // Show modal immediately if server-side belirledi
+        @if (showActivateModal)
+        {
+                <text>
+                    document.getElementById("activateModal").classList.remove("hidden");
+                </text>
+        }
+    </script>
+
+</body>
+</html>

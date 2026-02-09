@@ -1,0 +1,22 @@
+﻿@model EmailProject.Dtos.MailRequestDto
+@{
+    Layout = null;
+}
+<link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+<div class="container">
+    <form method="post">
+        <br />
+        <label>Kime</label>
+        <input type="text" class="form-control" asp-for="ReceiverEmail" />
+        <br />
+        <label>Konu</label>
+        <input type="text" class="form-control" asp-for="Subject" />
+        <br />
+        <label>Mesajınız</label>
+        <textarea class="form-control" asp-for="MessageDetail"></textarea>
+        <br />
+        <button class="btn btn-primary">Gönder</button>
+    </form>
+
+
+</div>

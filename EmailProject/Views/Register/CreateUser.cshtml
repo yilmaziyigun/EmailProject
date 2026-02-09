@@ -1,0 +1,124 @@
+﻿@model EmailProject.Dtos.UserRegisterDto
+@{
+    Layout = null;
+    var hasError = !ViewData.ModelState.IsValid;
+}
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Kayıt Ol</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background: url('/Images/kizkulesi.jpg') no-repeat center center fixed;
+            background-size: cover;
+        }
+
+        @@keyframes shake {
+            0% {
+                transform: translateX(0);
+            }
+
+            20% {
+                transform: translateX(-10px);
+            }
+
+            40% {
+                transform: translateX(10px);
+            }
+
+            60% {
+                transform: translateX(-10px);
+            }
+
+            80% {
+                transform: translateX(10px);
+            }
+
+            100% {
+                transform: translateX(0);
+            }
+        }
+
+        .shake {
+            animation: shake 0.4s;
+        }
+
+        .input {
+            width: 100%;
+            padding: 12px 16px;
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 8px;
+            color: white;
+            outline: none;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center relative">
+    <div class="absolute inset-0 bg-black/70 backdrop-blur-sm"></div>
+
+    <div id="card" class="relative w-full max-w-md bg-slate-900/80 border border-slate-700 rounded-2xl shadow-2xl p-10 z-10 @(hasError ? "shake" : "")">
+        <div class="flex justify-center mb-8">
+            <img src="/Images/Ylogo.png" alt="Logo" class="h-48 md:h-38 object-contain transition duration-300 hover:scale-105" />
+        </div>
+        <h2 class="text-3xl font-bold text-white text-center mb-8">Kayıt Ol</h2>
+
+        <form id="form" method="post" class="space-y-4">
+            <input asp-for="name" placeholder="Adınız" class="input" />
+            <input asp-for="surname" placeholder="Soyadınız" class="input" />
+            <input asp-for="username" placeholder="Kullanıcı Adı" class="input" />
+            <input asp-for="email" placeholder="Email" class="input" />
+
+            <div class="relative">
+                <input asp-for="password" id="passwordInput" type="password" placeholder="Şifre" class="input pr-12" />
+                <button type="button" onclick="togglePassword()" class="absolute right-3 top-3 text-slate-400">👁</button>
+            </div>
+
+            <label class="flex items-center gap-2 text-slate-300 text-sm">
+                <input asp-for="AcceptTerms" type="checkbox" class="w-4 h-4" />
+                Okudum ve kabul ediyorum.
+            </label>
+
+            <div asp-validation-summary="All" class="text-red-400 text-sm"></div>
+
+            <button class="w-full py-3 bg-indigo-600 hover:bg-indigo-700 rounded-lg text-white font-semibold">Kayıt Ol</button>
+        </form>
+
+        <!-- Hesabımı Aktifleştir Butonu -->
+        <div class="mt-6 flex justify-center">
+            <button onclick="openActivateModal()"
+                    class="px-6 py-3 bg-yellow-500 hover:bg-yellow-600 text-white font-semibold rounded-lg">
+                Hesabımı Aktifleştir
+            </button>
+        </div>
+    </div>
+
+    <!-- Activate Modal -->
+    <div id="activateModal" class="fixed inset-0 bg-black/70 backdrop-blur-sm hidden items-center justify-center z-50">
+        <div class="bg-slate-900 w-full max-w-md rounded-2xl p-8 border border-slate-700 shadow-2xl relative">
+            <h3 class="text-2xl font-bold text-white mb-4">Hesabımı Aktifleştir</h3>
+
+            @if (ViewBag.ActivateError != null)
+            {
+                <p class="text-red-400 mb-2">@ViewBag.ActivateError</p>
+            }
+
+            <form asp-action="ActivateUser" method="post" class="space-y-4">
+                <input type="email" name="Email" placeholder="Emailinizi girin" class="input" value="@(ViewBag.Email ?? "")" required />
+                <input type="text" name="Username" placeholder="Kullanıcı Adınızı girin" class="input" value="@(ViewBag.Username ?? "")" required />
+                <input type="text" name="ConfirmCode" placeholder="Mail ile gelen kodu girin" class="input" required />
+
+                <div class="flex justify-end gap-2 mt-4">
+                    <button type="button" onclick="closeActivateModal()" class="px-4 py-2 bg-gray-500 hover:bg-gray-600 text-white rounded-lg">İptal</button>
+                    <button type="submit" class="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg">Aktifleştir</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>
