@@ -19,26 +19,28 @@ Sistem 6 haneli rastgele bir doğrulama kodu üretir.
 Kod veritabanına kaydedilir (ConfirmCode).
 Aynı kod gerçek SMTP üzerinden kullanıcının mail adresine gönderilir.
 Kullanıcı gelen kodu girer.
-Eğer:
-Girilen kod == Veritabanındaki ConfirmCode
-→ EmailConfirmed = true yapılır.
+Eğer:  
+Girilen kod == Veritabanındaki ConfirmCode → EmailConfirmed = true yapılır.  
 Aksi durumda giriş yapılamaz.
 
-✔ Email doğrulanmadan sisteme giriş yapılamaz.
+✔ Email doğrulanmadan sisteme giriş yapılamaz.  
 ✔ Güvenli ve kontrollü authentication süreci uygulanır.
 
 ## ✨ Özellikler
 
-🔐 Kimlik doğrulama sistemi (6 haneli email doğrulama)
-📥 Gelen kutusu yönetimi
-📤 Giden kutusu
-⭐ Yıldızlı mesajlar
-🗑 Çöp kutusu
-🔎 Mesaj arama
-📝 Rich Text Editor (Quill.js)
-👤 Profil yönetimi
-🌙 Modern koyu tema (Tailwind CSS)
-📧 Gerçek SMTP entegrasyonu
+## ✨ Özellikler
+
+- 🔐 Kimlik doğrulama sistemi (6 haneli email doğrulama)
+- 📥 Gelen kutusu yönetimi
+- 📤 Giden kutusu
+- ⭐ Yıldızlı mesajlar
+- 🗑 Çöp kutusu
+- 🔎 Mesaj arama
+- 📝 Rich Text Editor (Quill.js)
+- 👤 Profil yönetimi
+- 🌙 Modern koyu tema (Tailwind CSS)
+- 📧 Gerçek SMTP entegrasyonu
+
 
 ## 🛠 Kullanılan Teknolojiler
 
