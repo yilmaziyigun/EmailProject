@@ -28,8 +28,6 @@ Aksi durumda giriş yapılamaz.
 
 ## ✨ Özellikler
 
-## ✨ Özellikler
-
 - 🔐 Kimlik doğrulama sistemi (6 haneli email doğrulama)
 - 📥 Gelen kutusu yönetimi
 - 📤 Giden kutusu
@@ -66,7 +64,7 @@ SMTP (MailKit / System.Net.Mail)
 ### ⭐ Yıldızlı Mesajlar
 <img width="1892" height="832" alt="yıldızlı" src="https://github.com/user-attachments/assets/757736e2-bede-493a-9e87-8547fdb36e72" />
 
-###✉️ Mesaj Gönderme
+### ✉️ Mesaj Gönderme
 <img width="1267" height="838" alt="mail gönder" src="https://github.com/user-attachments/assets/2e3e9875-8d5c-4775-a73a-c7498203366b" />
 
 ## 🧩 Modül Detayları
@@ -115,6 +113,6 @@ Gmail benzeri kullanıcı deneyimi
 Minimal ve temiz arayüz
 
 
-# 👨‍💻 Yılmaz İyigün
+### 👨‍💻 Yılmaz İyigün
 
 ⭐ Eğer projeyi beğendiysen yıldız bırakmayı unutma!
