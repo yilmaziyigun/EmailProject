@@ -42,7 +42,7 @@ namespace EmailProject.Controllers
 
             if (result.Succeeded)
             {
-                return RedirectToAction("Index", "Profile");
+                return RedirectToAction("Inbox", "Message");
             }
 
             ModelState.AddModelError("", "Kullanıcı adı veya şifre hatalı");

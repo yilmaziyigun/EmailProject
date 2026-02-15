@@ -31,24 +31,47 @@ namespace EmailProject.Controllers
         public async Task<IActionResult> Index(UserEditDto userEditDto)
         {
             var user = await _userManager.FindByNameAsync(User.Identity.Name);
+
             user.name = userEditDto.Name;
             user.Surname = userEditDto.Surname;
             user.UserName = userEditDto.Username;
-            user.PasswordHash = _userManager.PasswordHasher.HashPassword(user, userEditDto.Password);
             user.Email = userEditDto.Email;
-            var resource = Directory.GetCurrentDirectory();
-            var extension = Path.GetExtension(userEditDto.Image.FileName);
-            var newImageName = Guid.NewGuid() + extension;
-            var saveLocation = resource+ "/wwwroot/images/" + newImageName;
-            var stream = new FileStream(saveLocation, FileMode.Create);
-            await userEditDto.Image.CopyToAsync(stream);
-            user.ImageUrl =  newImageName;
+
+            if (!string.IsNullOrEmpty(userEditDto.Password))
+            {
+                user.PasswordHash = _userManager.PasswordHasher
+                    .HashPassword(user, userEditDto.Password);
+            }
+
+            // 🔥 FOTO VARSA YÜKLE
+            if (userEditDto.Image != null && userEditDto.Image.Length > 0)
+            {
+                var extension = Path.GetExtension(userEditDto.Image.FileName);
+                var newImageName = Guid.NewGuid().ToString() + extension;
+
+                var saveLocation = Path.Combine(
+                    Directory.GetCurrentDirectory(),
+                    "wwwroot",
+                    "Images",   // Klasör adın bu
+                    newImageName);
+
+                using (var stream = new FileStream(saveLocation, FileMode.Create))
+                {
+                    await userEditDto.Image.CopyToAsync(stream);
+                }
+
+                user.ImageUrl = newImageName;
+            }
+
             var result = await _userManager.UpdateAsync(user);
+
             if (result.Succeeded)
             {
                 return RedirectToAction("Inbox", "Message");
             }
-            return View();
+
+            return View(userEditDto);
         }
+
     }
 }

@@ -1,0 +1,32 @@
+﻿@model EmailProject.Entities.Message
+
+<div>
+
+    <!-- Header -->
+    <div class="flex items-center gap-4 mb-6">
+
+        <div class="h-12 w-12 rounded-full bg-indigo-600 flex items-center justify-center font-bold text-white">
+            @(Model.SenderEmail.Substring(0, 1).ToUpper())
+        </div>
+
+        <div>
+            <div class="font-semibold text-white">@Model.SenderEmail</div>
+            <div class="text-xs text-gray-500">
+                @Model.SentDate.ToString("dd MMM yyyy HH:mm")
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Subject -->
+    <h2 class="text-2xl font-bold text-white mb-4">
+        @Model.Subject
+    </h2>
+
+    <!-- Message -->
+    <div class="text-gray-300 leading-7 prose prose-invert max-w-none">
+
+        @Html.Raw(Model.MessageDetail)
+    </div>
+
+</div>

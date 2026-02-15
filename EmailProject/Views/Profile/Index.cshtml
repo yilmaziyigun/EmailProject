@@ -2,27 +2,115 @@
 @{
     Layout = null;
 }
-<link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
-<div class="container">
-    <br /> <br/>
-    <form method="post" enctype="multipart/form-data">
-        <br />
-        <label>Kullanıcı Adınız</label>
-        <input type="text" placeholder="Kullanıcı Adınız" class="form-control" asp-for="Username" />
-        <br />
-        <label>Adınız</label>
-        <input type="text" placeholder="Adınız" class="form-control" asp-for="Name" />
-        <br />
-        <label>Soyadınız</label>
-        <input type="text" placeholder="Soyadınız" class="form-control" asp-for="Surname" />
-        <br />
-        <label>Mail Adresiniz</label>
-        <input type="text" placeholder="Mail Adresiniz" class="form-control" asp-for="Email" />
-        <br />
-        <label>Görsel Url</label>
-        <input type="file" placeholder="Görsel Url"  class="form-control" asp-for="Image" />
-        <label>Şifreniz</label>
-        <input type="text" placeholder="Şifreniz" class="form-control" asp-for="Password" />
-        <button class="btn btn-primary">Güncelle</button>
-    </form>
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<div class="min-h-screen bg-gray-900 flex items-center justify-center p-6">
+    <div class="w-full max-w-4xl bg-gray-800 rounded-2xl shadow-2xl p-8">
+
+        <h2 class="text-2xl font-bold text-white mb-8 border-b border-gray-700 pb-3">
+            Profil Bilgilerini Güncelle
+        </h2>
+
+        <form asp-controller="Profile" asp-action="Index" method="post" enctype="multipart/form-data">
+
+
+            <div class="grid md:grid-cols-3 gap-8">
+
+                <!-- SOL: Profil Görseli -->
+                <div class="flex flex-col items-center">
+
+                    <a href="/Profile/Index">
+                        <div class="h-10 w-10 rounded-full overflow-hidden border-2 border-gray-800 cursor-pointer">
+                            @if (!string.IsNullOrEmpty(ViewBag.UserImage))
+                            {
+                                <img id="previewImage"
+                                     src="~/Images/@Model.ImageUrl"
+                                     class="w-full h-full object-cover rounded-full" />
+
+                            }
+                            else
+                            {
+                                <div class="w-full h-full bg-gradient-to-tr from-orange-400 to-pink-500 flex items-center justify-center text-white font-bold">
+                                    @(ViewBag.UserEmail != null && ViewBag.UserEmail.Length > 0
+                                                                    ? ViewBag.UserEmail.Substring(0, 1).ToUpper()
+                                                                    : "Y")
+                            </div>
+                                                }
+
+
+
+                    </div>
+
+                    <label class="cursor-pointer bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg text-sm transition">
+                        Görsel Seç
+                        <input asp-for="Image"
+                               type="file"
+                               class="hidden"
+                               accept="image/*"
+                               onchange="previewFile(this)" />
+                    </label>
+
+                </div>
+
+                <!-- SAĞ: Form Alanları -->
+                <div class="md:col-span-2 space-y-5">
+
+                    <div>
+                        <label class="block text-sm text-gray-400 mb-1">Kullanıcı Adı</label>
+                        <input asp-for="Username"
+                               class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg px-4 py-2 focus:ring-2 focus:ring-indigo-500 outline-none" />
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm text-gray-400 mb-1">Ad</label>
+                            <input asp-for="Name"
+                                   class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg px-4 py-2 focus:ring-2 focus:ring-indigo-500 outline-none" />
+                        </div>
+
+                        <div>
+                            <label class="block text-sm text-gray-400 mb-1">Soyad</label>
+                            <input asp-for="Surname"
+                                   class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg px-4 py-2 focus:ring-2 focus:ring-indigo-500 outline-none" />
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm text-gray-400 mb-1">Mail</label>
+                        <input asp-for="Email"
+                               class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg px-4 py-2 focus:ring-2 focus:ring-indigo-500 outline-none" />
+                    </div>
+
+                    <div>
+                        <label class="block text-sm text-gray-400 mb-1">Şifre</label>
+                        <input asp-for="Password" type="password"
+                               class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg px-4 py-2 focus:ring-2 focus:ring-indigo-500 outline-none" />
+                    </div>
+
+                    <button type="submit"
+                            class="w-full bg-indigo-600 hover:bg-indigo-700 transition py-2 rounded-lg font-semibold text-white">
+                        Güncelle
+                    </button>
+
+                </div>
+
+            </div>
+
+        </form>
+
+    </div>
 </div>
+
+<script>
+    function previewFile(input) {
+        const file = input.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                document.getElementById("previewImage").src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+    }
+</script>

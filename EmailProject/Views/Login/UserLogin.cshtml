@@ -17,9 +17,18 @@
     <title>Giriş Yap</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="min-h-screen flex items-center justify-center relative">
+<body class="min-h-screen flex items-center justify-center relative overflow-hidden">
 
-    <div class="absolute inset-0 bg-black/70 backdrop-blur-sm"></div>
+    <!-- Blur Background Image -->
+    <div class="fixed inset-0 -z-10">
+        <img src="~/Images/kizkulesi.jpg"
+             class="w-full h-full object-cover blur-l scale-110" />
+
+        <!-- Dark Overlay -->
+        <div class="absolute inset-0 bg-black/70"></div>
+    </div>
+
+
 
     <!-- Login Card -->
     <div class="relative w-full max-w-md bg-slate-900/80 border border-slate-700 rounded-2xl shadow-2xl p-10 z-10 @(hasError ? "shake" : "")">

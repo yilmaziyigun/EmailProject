@@ -1,0 +1,70 @@
+﻿@{
+    Layout = null;
+    var email = ViewBag.Email ?? "";
+    var username = ViewBag.Username ?? "";
+    var error = TempData["ActivateError"] ?? "";
+}
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Hesap Aktivasyonu</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen flex items-center justify-center relative bg-slate-950">
+
+    <div class="absolute inset-0 bg-black/70 backdrop-blur-sm"></div>
+
+    <div class="relative w-full max-w-md bg-slate-900/90 border border-slate-700 rounded-2xl shadow-2xl p-10 z-10">
+
+        <div class="flex justify-center mb-8">
+            <img src="/Images/Ylogo.png" class="h-40 object-contain" />
+        </div>
+
+        <h2 class="text-3xl font-bold text-white text-center mb-2">
+            Hesabını Aktifleştir
+        </h2>
+
+        <p class="text-slate-400 text-center mb-8 text-sm">
+            Mail adresine gönderilen 6 haneli kodu girerek hesabını aktifleştirebilirsin.
+        </p>
+
+        @if (!string.IsNullOrEmpty(error.ToString()))
+        {
+            <div class="bg-red-500/10 border border-red-500 text-red-400 p-3 rounded-lg mb-4 text-sm">
+                @error
+            </div>
+        }
+
+        <form asp-action="ActivateUser" method="post" class="space-y-5">
+
+            <input type="email" name="Email" value="@email" readonly
+                   class="w-full px-4 py-3 rounded-lg bg-slate-800 text-slate-400 border border-slate-700 outline-none" />
+
+            <input type="text" name="Username" value="@username" readonly
+                   class="w-full px-4 py-3 rounded-lg bg-slate-800 text-slate-400 border border-slate-700 outline-none" />
+
+            <input type="text" name="ConfirmCode" placeholder="6 Haneli Kod"
+                   class="w-full px-4 py-4 text-center tracking-widest text-2xl rounded-lg bg-slate-800 text-white border border-slate-700 focus:ring-2 focus:ring-indigo-500 outline-none"
+                   maxlength="6" required />
+
+            <button type="submit"
+                    class="w-full py-3 bg-indigo-600 hover:bg-indigo-700 transition rounded-lg text-white font-semibold">
+                Hesabı Aktifleştir
+            </button>
+
+        </form>
+
+        <div class="text-center mt-6">
+            <a asp-controller="Login" asp-action="UserLogin"
+               class="text-slate-400 hover:text-white text-sm">
+                Giriş Yap Ekranına Dön
+            </a>
+        </div>
+
+    </div>
+
+</body>
+</html>

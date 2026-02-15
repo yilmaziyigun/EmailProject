@@ -38,14 +38,33 @@ namespace EmailProject.Controllers
                 return View(dto);
             }
 
-            var existingUser = await _userManager.FindByEmailAsync(dto.email);
-            if (existingUser != null)
+            // EMAIL KONTROL
+            var emailUser = await _userManager.FindByEmailAsync(dto.email);
+            if (emailUser != null)
             {
-                ViewBag.ShowActivateModal = true;
-                ViewBag.Email = dto.email;
+                if (!emailUser.EmailConfirmed)
+                {
+                    return RedirectToAction("ActivateUser", new
+                    {
+                        email = emailUser.Email,
+                        username = emailUser.UserName
+                    });
+                }
+
+                ModelState.AddModelError("", "Bu email zaten kayıtlı ve aktif.");
                 return View(dto);
             }
 
+
+            // USERNAME KONTROL
+            var usernameUser = await _userManager.FindByNameAsync(dto.username);
+            if (usernameUser != null)
+            {
+                ModelState.AddModelError("", "Bu kullanıcı adı zaten alınmış.");
+                return View(dto);
+            }
+
+            // KULLANICI OLUŞTUR
             var user = new AppUser
             {
                 UserName = dto.username,
@@ -60,51 +79,57 @@ namespace EmailProject.Controllers
             {
                 foreach (var error in result.Errors)
                     ModelState.AddModelError("", error.Description);
+
                 return View(dto);
             }
 
-            // Confirm Code üret
+            // CONFIRM CODE
             var code = new Random().Next(100000, 999999).ToString();
             user.ConfirmCode = code;
             await _userManager.UpdateAsync(user);
 
-            // Mail gönder
+            //email gönder
             await _emailService.SendConfirmCodeAsync(user.Email, code);
 
-            ViewBag.ShowActivateModal = true;
-            ViewBag.Email = user.Email;
+            // MODAL AÇ
+            return RedirectToAction("ActivateUser", new
+            {
+                email = user.Email,
+                username = user.UserName
+            });
 
-            return View(dto);
         }
 
+
         // ---------------- ACTIVATE USER ----------------
+        [HttpGet]
+        public IActionResult ActivateUser(string email, string username)
+        {
+            ViewBag.Email = email;
+            ViewBag.Username = username;
+            return View();
+        }
         [HttpPost]
         public async Task<IActionResult> ActivateUser(string Email, string Username, string ConfirmCode)
         {
             var user = await _userManager.FindByEmailAsync(Email);
+
             if (user == null || user.UserName != Username)
             {
-                ViewBag.ActivateError = "Email veya kullanıcı adı yanlış!";
-                ViewBag.ShowActivateModal = true;
-                ViewBag.Email = Email;
-                ViewBag.Username = Username;
-                return View("CreateUser");
+                TempData["ActivateError"] = "Email veya kullanıcı adı yanlış!";
+                return RedirectToAction("ActivateUser", new { email = Email, username = Username });
             }
 
             if (user.EmailConfirmed)
             {
-                ViewBag.ActivateError = "Hesabınız zaten aktif.";
-                ViewBag.ShowActivateModal = true;
-                return View("CreateUser");
+                TempData["ActivateError"] = "Hesabınız zaten aktif.";
+                return RedirectToAction("ActivateUser", new { email = Email, username = Username });
             }
 
             if (user.ConfirmCode != ConfirmCode)
             {
-                ViewBag.ActivateError = "Kod yanlış!";
-                ViewBag.ShowActivateModal = true;
-                ViewBag.Email = Email;
-                ViewBag.Username = Username;
-                return View("CreateUser");
+                TempData["ActivateError"] = "Kod yanlış!";
+                return RedirectToAction("ActivateUser", new { email = Email, username = Username });
             }
 
             user.EmailConfirmed = true;
@@ -113,6 +138,7 @@ namespace EmailProject.Controllers
 
             return RedirectToAction("UserLogin", "Login");
         }
+
 
     }
 }

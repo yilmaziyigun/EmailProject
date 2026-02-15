@@ -112,6 +112,9 @@ namespace EmailProject.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MessageId"));
 
+                    b.Property<bool>("IsStarred")
+                        .HasColumnType("bit");
+
                     b.Property<bool>("IsStatus")
                         .HasColumnType("bit");
 
