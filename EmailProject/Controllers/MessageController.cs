@@ -153,6 +153,8 @@ namespace EmailProject.Controllers
 
             ViewBag.SentCount = await _context.Messages
                 .CountAsync(x => x.SenderEmail == user.Email);
+            ViewBag.UnreadCount = await _context.Messages
+     .CountAsync(x => x.ReceiverEmail == user.Email && !x.IsStatus);
 
             ViewBag.StarredCount = await _context.Messages
                 .CountAsync(x => x.ReceiverEmail == user.Email && x.IsStarred);

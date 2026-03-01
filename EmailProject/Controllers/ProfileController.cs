@@ -24,7 +24,10 @@ namespace EmailProject.Controllers
             userEditDto.Surname = user.Surname;
             userEditDto.ImageUrl = user.ImageUrl;
             userEditDto.Email = user.Email;
-            
+            ViewBag.TotalMail = 124;
+            ViewBag.Unread = 18;
+            ViewBag.Sent = 76;
+            ViewBag.Draft = 9;
             return View(userEditDto);
         }
         [HttpPost]
