@@ -58,7 +58,7 @@ SMTP (MailKit / System.Net.Mail)
 ### ✉️ Hesap Aktifleştirme Ekranı
 <img width="1495" height="818" alt="hesap aktiflestirme" src="https://github.com/user-attachments/assets/21e5e90e-78fd-4e13-af50-43ccd12374de" />
 
-### 📧 6 Haneli Kod Mail'e  Ekranı
+### 📧 6 Haneli Kodun Mail Gönderim Ekranı
 <img width="578" height="219" alt="6haneli kod" src="https://github.com/user-attachments/assets/f6506c18-ea95-4a15-99a8-afd133994934" />
 
 ### 📥 Gelen Kutusu
