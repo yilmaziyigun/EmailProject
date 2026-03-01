@@ -55,8 +55,14 @@ SMTP (MailKit / System.Net.Mail)
 ### 🔐 Login Ekranı
 <img width="1883" height="875" alt="login" src="https://github.com/user-attachments/assets/006e3017-8a25-4f09-a487-c896708e26a2" />
 
+### ✉️ Hesap Aktifleştirme Ekranı
+<img width="1495" height="818" alt="hesap aktiflestirme" src="https://github.com/user-attachments/assets/21e5e90e-78fd-4e13-af50-43ccd12374de" />
+
+### 📧 6 Haneli Kod Mail'e  Ekranı
+<img width="578" height="219" alt="6haneli kod" src="https://github.com/user-attachments/assets/f6506c18-ea95-4a15-99a8-afd133994934" />
+
 ### 📥 Gelen Kutusu
-<img width="1884" height="884" alt="inbox" src="https://github.com/user-attachments/assets/4d977a06-1268-4ec1-88c5-79905b50e1ef" />
+<img width="1812" height="875" alt="inbox" src="https://github.com/user-attachments/assets/cccff730-b96b-4575-af16-a21e43761e7c" />
 
 ### 📤 Giden Kutusu
 <img width="1890" height="859" alt="sendbox" src="https://github.com/user-attachments/assets/844496ae-c258-431f-8bb1-d3a1b5b2c740" />
@@ -66,6 +72,21 @@ SMTP (MailKit / System.Net.Mail)
 
 ### ✉️ Mesaj Gönderme
 <img width="1267" height="838" alt="mail gönder" src="https://github.com/user-attachments/assets/2e3e9875-8d5c-4775-a73a-c7498203366b" />
+
+### 👤 Profil Yönetimi
+<img width="1303" height="814" alt="profile" src="https://github.com/user-attachments/assets/2346e974-5f5e-4998-aa92-0c55dcbc66a8" />
+
+## 📸 Hataların Ekran Görüntüleri
+
+### 🔐 Kayıt Olurken gereksinimler
+<img width="1706" height="847" alt="kayıt ol hata" src="https://github.com/user-attachments/assets/68d8e0e3-6e83-4e76-967c-b5eb0a738ef7" />
+
+###  👤 Giriş Yaparken gereksinimler
+<img width="1714" height="846" alt="login hata" src="https://github.com/user-attachments/assets/12a47a17-bf6d-4411-8276-0eef9290cfe4" />
+
+### 📧 Hesap Aktifleştirme 6 haneli kod gereksinimi
+<img width="1393" height="812" alt="6 haneli kod yanlış" src="https://github.com/user-attachments/assets/998dab2b-4f1c-41fe-8ebd-ed70bbd3dff2" />
+
 
 ## 🧩 Modül Detayları
 📥 Inbox Sistemi
